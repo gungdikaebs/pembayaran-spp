@@ -1,34 +1,38 @@
 :root {
-    --bg: ;
-    --primary: ;
-    --secondary: ;
+  --bg: ;
+  --primary: ;
+  --secondary: ;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
 }
-
 
 /* Navbar */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.4rem 7%;
-    background-color: rgb(1, 1, 1, 0.8);
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px;
+  background-color: rgb(1, 1, 1, 0.8);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 999;
 }
 
 .navbar .navbar-nav {
-    display: inline-block;
-    margin: 0 30px;
+  display: inline-block;
+  margin: 0 30px;
+}
+
+.navbar .navbar-nav a {
+  color: #fff;
+  margin-right: 7rem;
 }

@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<?php require "koneksi.php"; ?>
+<!-- <?php require "koneksi.php"; ?> -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +16,3 @@
 </body>
 
 </html>
-=======
-<?php ?>
->>>>>>> 92bbc437fdc60b69d5dcd4f32fc60f9da748463b
