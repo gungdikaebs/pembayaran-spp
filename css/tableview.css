@@ -1,0 +1,29 @@
+/*  */
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .row {
+    display: inline-block;
+}
+
+.container .row .card-tittle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 20px 10px;
+    font-size: 40px;
+}
+
+.container .row table {
+    border-collapse: collapse;
+}
+
+.container .row th,
+.container .row td {
+    padding: 10px 20px;
+}

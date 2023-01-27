@@ -4,4 +4,4 @@ $dbuser = "root";
 $dbpass =  "";
 $dbname = "db_pembayaranspp";
 
-$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+$koneksi = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
