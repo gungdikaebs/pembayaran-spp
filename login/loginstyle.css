@@ -1,23 +1,42 @@
-.container {
+@import url(../css/root.css);
+
+:root {
+    --bg: #FFFBF5;
+    --primary: #4B49AC;
+    --secondary: #98BDFF;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'karla';
     display: flex;
     justify-content: center;
-    align-items: center;
-    top: 50%;
-    left: auto;
-    right: auto;
+    background-color: aliceblue;
 }
 
-.container .card {
-    margin-top: 20px;
+.container {
+    margin: 10rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 40%;
+    height: 50vh;
+    background-color: var(--bg);
 }
 
-.container input {
+.card {
+    justify-content: center;
+    margin: 1rem;
     width: 100%;
 }
 
-.container button {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
+.card h1 {
+    font-family: 'poppins';
 }

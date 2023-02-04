@@ -1,29 +1,108 @@
-/*  */
+@import url(root.css);
+
+:root {
+    --bg: #FFFBF5;
+    --primary: #4B49AC;
+    --secondary: #98BDFF;
+}
+
+
+body {
+    font-family: 'poppins';
+}
+
 .container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 80%;
+    margin: 8rem auto;
+    text-align: center;
 }
 
 .container .row {
-    display: inline-block;
-}
-
-.container .row .card-tittle {
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 20px 10px;
-    font-size: 40px;
 }
 
+
+.container .card-tittle {
+    display: flex;
+    border-bottom: 1px solid;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    margin: 3rem 0;
+}
+
+
+
 .container .row table {
+    flex: 1 1 0% !important;
+    border: #222152;
     border-collapse: collapse;
 }
 
 .container .row th,
 .container .row td {
     padding: 10px 20px;
+}
+
+table th,
+table td {
+    font-family: 'karla';
+}
+
+/* Table Pembayaran */
+
+.pencarian {
+    font-family: 'karla';
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.pencarian table {
+    width: 20%;
+    margin: 1rem 1rem;
+    height: auto;
+    border: 1px solid #222152;
+    border-radius: 1rem;
+}
+
+.pencarian table .bordered {
+    border-right: 1px solid;
+
+}
+
+.pencarian table input {
+    text-align: center;
+    background-color: var(--bg);
+    width: 80%;
+    margin-left: 1rem;
+    height: auto;
+    border: none;
+    text-decoration: none;
+}
+
+.pencarian table .button {
+    background-color: transparent;
+    border: none;
+}
+
+.biodata {
+    font-family: 'karla';
+    text-align: left;
+    background-color: aliceblue;
+    font-size: 1rem;
+}
+
+.judul-biodata {
+    font-family: 'poppins';
+    padding: 1rem 5rem;
+    margin-bottom: 1rem;
+}
+
+.judul-biodata h5 {
+    font-size: 1.5rem;
 }

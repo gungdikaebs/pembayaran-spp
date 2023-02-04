@@ -1,0 +1,11 @@
+@font-face {
+    font-family: karla;
+    src: url(../fonts/Karla/Karla-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: poppins;
+    src: url(../fonts/Poppins/Poppins-Medium.ttf);
+    /* src: url(../fonts/Poppins/Poppins-Bold.ttf);
+    src: url(../fonts/Poppins/Poppins-SemiBold.ttf); */
+}

@@ -1,4 +1,7 @@
-<?php require "../koneksi.php" ?>
+<?php
+require "../koneksi.php";
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,10 +18,12 @@
 <body>
     <?php require "../template/navbar.php"; ?>
     <div class="container">
+
+        <div class="card-tittle">
+            <h4>Data Siswa</h4>
+        </div>
+
         <div class="row">
-            <div class="card-tittle">
-                <h4>Data Siswa</h4>
-            </div>
             <table class="table" border="1px">
                 <thead>
                     <tr>
@@ -34,22 +39,25 @@
                 <tbody>
                     <?php
                     $query = mysqli_query($koneksi, "SELECT * FROM tb_siswa");
-                    while ($row = mysqli_fetch_assoc($query)) {
+                    while ($data = mysqli_fetch_assoc($query)) {
                     ?>
                         <tr>
-                            <td> <?php echo $row['nis']; ?></td>
-                            <td> <?php echo $row['nama']; ?></td>
-                            <td> <?php echo $row['nisn']; ?></td>
-                            <td> <?php echo $row['id_spp']; ?></td>
-                            <td> <?php echo $row['kelas']; ?></td>
-                            <td> <?php echo $row['alamat']; ?></td>
-                            <td> <?php echo $row['no_ortu']; ?></td>
+                            <td> <?php echo $data['nis']; ?></td>
+                            <td> <?php echo $data['nama']; ?></td>
+                            <td> <?php echo $data['nisn']; ?></td>
+                            <td> <?php echo $data['angkatan']; ?></td>
+                            <td> <?php echo $data['kelas']; ?></td>
+                            <td> <?php echo $data['alamat']; ?></td>
+                            <td> <?php echo $data['no_ortu']; ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>
             </table>
+
         </div>
     </div>
+
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +14,10 @@
 
 <body>
     <div class="container">
-        <form action="proses_login.php">
+        <form action="proses_login.php" method="post">
+            <div class="card">
+                <h1>Login Page</h1>
+            </div>
             <div class="card">
                 <label for="username">Username</label>
                 <input type="text" placeholder="username" name="username">
@@ -21,7 +27,6 @@
                 <input type="password" placeholder="password" name="password">
             </div>
             <button type="submit" class="login">Login</button>
-
         </form>
     </div>
 </body>
