@@ -24,6 +24,10 @@ session_start();
             <h4>Data Petugas</h4>
         </div>
 
+        <div class="tambah-menu">
+            <a href="../insert/petugas.php">Tambah Data</a>
+        </div>
+
 
         <div class="row">
             <table class="table" border="1px solid">
@@ -32,6 +36,7 @@ session_start();
                         <th>Id Petugas</th>
                         <th>Nama Petugas</th>
                         <th>Level</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +49,10 @@ session_start();
                             <td><?php echo $data['id_petugas']; ?></td>
                             <td><?php echo $data['nama_petugas']; ?></td>
                             <td><?php echo $data['leveluser']; ?></td>
+                            <td class="action">
+                                <a href="../update/petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="update">Update</a>
+                                <a href="../delete/delete_petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="delete">Delete</a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -51,6 +60,8 @@ session_start();
         </div>
 
     </div>
+
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

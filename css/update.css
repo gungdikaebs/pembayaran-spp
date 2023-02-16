@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;1,700&display=swap');
+
+:root {
+    --bg: #FFFBF5;
+    --primary: #4B49AC;
+    --secondary: #98BDFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: aliceblue;
+}
+
+.container {
+    width: 80%;
+    margin: 8rem auto;
+}
+
+.container .row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.container .card-tittle h2 {
+    text-align: center;
+    opacity: 70%;
+    margin-bottom: 1rem;
+}
+
+.container .row form {
+    background-color: #fff;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.container .row .input-group {
+    margin: 1rem;
+}
+
+.container .row label {
+    margin-top: 2rem;
+}
+
+.container .row input[type=text] {
+    display: block;
+    background-color: #dcd9d932;
+    border: 1px solid #0a0a0acd;
+    width: 30rem;
+    height: 3rem;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    font-size: 16px;
+}
+
+
+.container .row input[type=submit] {
+    margin-right: 1rem;
+    border: 1px solid #0a0a0acd;
+    border-radius: 0.8rem;
+    width: 10rem;
+    height: 2rem;
+    float: right;
+    background-color: var(--primary);
+    color: var(--bg);
+}
+
+.container .row select {
+    width: 100%;
+    padding: 0 1rem;
+    height: 3rem;
+    border: 1px solid #0a0a0acd;
+    border-radius: 0.5rem;
+    background-color: #dcd9d932;
+}

@@ -16,11 +16,17 @@ session_start();
 </head>
 
 <body>
-    <?php require "../template/navbar.php"; ?>
+    <?php
+    require "../template/navbar.php";
+    ?>
     <div class="container">
 
         <div class="card-tittle">
             <h4>Data Siswa</h4>
+        </div>
+
+        <div class="tambah-menu">
+            <a href="../insert/siswa.php">Tambah Data</a>
         </div>
 
         <div class="row">
@@ -34,6 +40,7 @@ session_start();
                         <th>Kelas</th>
                         <th>Alamat</th>
                         <th>No Telp Orang Tua</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +56,10 @@ session_start();
                             <td> <?php echo $data['kelas']; ?></td>
                             <td> <?php echo $data['alamat']; ?></td>
                             <td> <?php echo $data['no_ortu']; ?></td>
+                            <td class="action">
+                                <a href="../update/siswa.php?nis=<?= $data['nis']; ?>" class="update">Update</a>
+                                <a href="../delete/delete_siswa.php?nis=<?= $data['nis']; ?>" class="delete">Delete</a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2023 at 11:22 PM
+-- Generation Time: Feb 09, 2023 at 02:15 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -28,7 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tb_kelas` (
-  `kelas` varchar(50) NOT NULL,
+  `Id` int(10) NOT NULL,
+  `nama_kelas` varchar(30) NOT NULL,
   `keterangan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -36,8 +37,8 @@ CREATE TABLE `tb_kelas` (
 -- Dumping data for table `tb_kelas`
 --
 
-INSERT INTO `tb_kelas` (`kelas`, `keterangan`) VALUES
-('XII RPL 1', 'Rekayasa Perangkat Lunak');
+INSERT INTO `tb_kelas` (`Id`, `nama_kelas`, `keterangan`) VALUES
+(1, 'X RPL', 'Rekayasa Perangkat Lunak');
 
 -- --------------------------------------------------------
 
@@ -49,8 +50,9 @@ CREATE TABLE `tb_pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_petugas` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
-  `tgl_bayar` varchar(50) NOT NULL,
+  `tgl_bayar` date NOT NULL,
   `bulan` varchar(30) NOT NULL,
+  `tahun` varchar(10) NOT NULL,
   `status` varchar(50) NOT NULL,
   `angkatan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -87,8 +89,8 @@ CREATE TABLE `tb_siswa` (
   `nama` varchar(50) NOT NULL,
   `nisn` int(20) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `id_spp` int(20) NOT NULL,
-  `kelas` varchar(50) NOT NULL,
+  `angkatan` int(20) NOT NULL,
+  `kelas` int(10) NOT NULL,
   `alamat` varchar(50) NOT NULL,
   `no_ortu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,8 +99,8 @@ CREATE TABLE `tb_siswa` (
 -- Dumping data for table `tb_siswa`
 --
 
-INSERT INTO `tb_siswa` (`nis`, `nama`, `nisn`, `password`, `id_spp`, `kelas`, `alamat`, `no_ortu`) VALUES
-(2101, 'Kevin', 12345671, '1234', 2022, 'XII RPL 1', 'Jalan Kemana Aja', 0);
+INSERT INTO `tb_siswa` (`nis`, `nama`, `nisn`, `password`, `angkatan`, `kelas`, `alamat`, `no_ortu`) VALUES
+(2101, 'Kevin', 12345671, '1234', 2022, 1, 'Jalan Kemana Aja', 0);
 
 -- --------------------------------------------------------
 
@@ -128,14 +130,13 @@ INSERT INTO `tb_spp` (`angkatan`, `biaya`) VALUES
 -- Indexes for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  ADD PRIMARY KEY (`kelas`);
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indexes for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`),
-  ADD KEY `fk_idspp_tb_pembayaran` (`angkatan`),
   ADD KEY `fk_idpetugas_tb_pembayaran` (`id_petugas`),
   ADD KEY `fk_nisn_tb_pembayaran` (`nis`);
 
@@ -150,7 +151,7 @@ ALTER TABLE `tb_petugas`
 --
 ALTER TABLE `tb_siswa`
   ADD PRIMARY KEY (`nis`),
-  ADD KEY `fk_idspp_tb_siswa` (`id_spp`),
+  ADD KEY `fk_idspp_tb_siswa` (`angkatan`) USING BTREE,
   ADD KEY `fk_idkelas_tb_siswa` (`kelas`);
 
 --
@@ -162,6 +163,12 @@ ALTER TABLE `tb_spp`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tb_kelas`
+--
+ALTER TABLE `tb_kelas`
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
@@ -195,16 +202,16 @@ ALTER TABLE `tb_spp`
 -- Constraints for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
+  ADD CONSTRAINT `fk_angkatan_tb_pembayaran` FOREIGN KEY (`id_pembayaran`) REFERENCES `tb_spp` (`angkatan`),
   ADD CONSTRAINT `fk_idpetugas_tb_pembayaran` FOREIGN KEY (`id_petugas`) REFERENCES `tb_petugas` (`id_petugas`),
-  ADD CONSTRAINT `fk_idspp_tb_pembayaran` FOREIGN KEY (`angkatan`) REFERENCES `tb_spp` (`angkatan`),
   ADD CONSTRAINT `fk_nisn_tb_pembayaran` FOREIGN KEY (`nis`) REFERENCES `tb_siswa` (`nis`);
 
 --
 -- Constraints for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  ADD CONSTRAINT `fk_idkelas_tb_siswa` FOREIGN KEY (`kelas`) REFERENCES `tb_kelas` (`kelas`),
-  ADD CONSTRAINT `fk_idspp_tb_siswa` FOREIGN KEY (`id_spp`) REFERENCES `tb_spp` (`angkatan`);
+  ADD CONSTRAINT `fk_idkelas_tb_siswa` FOREIGN KEY (`kelas`) REFERENCES `tb_kelas` (`Id`),
+  ADD CONSTRAINT `fk_idspp_tb_siswa` FOREIGN KEY (`angkatan`) REFERENCES `tb_spp` (`angkatan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

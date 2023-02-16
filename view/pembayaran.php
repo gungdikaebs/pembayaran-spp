@@ -1,6 +1,5 @@
 <?php
 session_start();
-// error_reporting(0);
 require "../koneksi.php";
 error_reporting(0);
 ?>
@@ -39,8 +38,8 @@ error_reporting(0);
             <table>
                 <form action="" method="GET">
                     <tr>
-                        <td class="bordered">
-                            <input type="text" autocomplete="off" name="nis" list="NIS" placeholder="Masukkan NIS siswa">
+                        <td>
+                            <input type="text" placeholder="Masukkan Nis" autocomplete="off" name="nis" list="NIS">
                             <datalist id="NIS">
                                 <?php
                                 $result = mysqli_query($koneksi, "SELECT * FROM tb_siswa");
@@ -52,79 +51,157 @@ error_reporting(0);
                                 ?>
                             </datalist>
                         </td>
+
                         <td>
-                            <button class="button"><img src="../img/search.png" width="20px" alt=""></button>
+                            <?php ?>
+                        </td>
+                        <td>
+                            <button class="button" name="cari">Cari</button>
                         </td>
                     </tr>
                 </form>
             </table>
         </div>
 
-        <div class="biodata">
-            <div class="row">
+        <?php
+        if (isset($_GET['nis']) && ($_GET['nis'] != '')) {
+            $querycari = "SELECT *  FROM tb_siswa WHERE nis='$_GET[nis]'";
+            $resultcari = mysqli_query($koneksi, $querycari);
+            $data = mysqli_fetch_assoc($resultcari);
+            $nis = $data['nis'];
+
+        ?>
+            <div class="biodata">
                 <div class="judul-biodata">
-                    <h5>Biodata Siswa</h5>
+                    <h2>Biodata Siswa</h2>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="table-pembayaran">
+                <div class="table-biodata">
                     <table>
-                        <?php
-                        if (isset($_GET['nis'])) {
-                            $nis = $_GET['nis'];
-                            $querycari = "SELECT *  FROM tb_siswa WHERE nis='$nis'";
-                            $resultcari = mysqli_query($koneksi, $querycari);
-                            $data = mysqli_fetch_assoc($resultcari);
-                        }
-                        ?>
-
                         <form action="../insert/prosespembayaran.php" method="post">
                             <tr>
-                                <td>Nama</td>
-                                <td><input type="text" name="nama" value="<?php echo $data['nama']; ?>"></td>
-                            </tr>
-                            <tr>
                                 <td>Nis</td>
-                                <td><input type="text" name="nis" value="<?php echo $data['nis']; ?>"></td>
+                                <td>:</td>
+                                <td><?= $data['nis']; ?></td>
                             </tr>
                             <tr>
-                                <td>Nisn </td>
-                                <td><input type="text" name="nisn" value="<?php echo $data['nisn']; ?>"></td>
-                            </tr>
-
-                            <tr>
-                                <td>Tanggal Bayar</td>
-                                <td> <input type="text" name="tanggal" value="<?php echo date("Y-m-d"); ?>"></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
+                                <td>Nama</td>
+                                <td>:</td>
+                                <td><?= $data['nama']; ?></td>
                             </tr>
                             <tr>
-                                <td>Jumlah Bayar</td>
-                                <?php
-                                $angkatan = $data['angkatan'];
-                                $queryspp = mysqli_query($koneksi, "SELECT biaya FROM tb_spp WHERE angkatan='$angkatan'");
-                                $dataspp = mysqli_fetch_assoc($queryspp);
-                                ?>
-                                <input type="text" hidden name="angkatan" value="<?php echo $angkatan ?>">
-                                <td>
-                                    <input type="text" readonly name="biaya" value="<?php echo $dataspp['biaya']; ?>">
-                                </td>
+                                <td>Nisn</td>
+                                <td>:</td>
+                                <td><?= $data['nisn']; ?></td>
                             </tr>
                             <tr>
-                                <td>&nbsp;</td>
-                                <td><button type="submit">bayar</button></td>
+                                <td>Angkatan</td>
+                                <td>:</td>
+                                <td><?= $data['angkatan']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td>:</td>
+                                <td><?= $data['alamat']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>No Telpon Ortu</td>
+                                <td>:</td>
+                                <td><?= $data['no_ortu']; ?></td>
                             </tr>
                         </form>
                     </table>
                 </div>
             </div>
-        </div>
+
+            <div class="detail-siswa">
+                <div class="judul-detail">
+                    <h2>Detail Siswa</h2>
+                </div>
+                <div class="table-detail">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Bulan</th>
+                                <th>Jatuh Tempo</th>
+                                <th>Tanggal Bayar</th>
+                                <th>Jumlah</th>
+                                <th>Keterangan</th>
+                                <th>Bayar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form action="" method="get">
+                                <?php
+                                $awaltempo = date('y-06-d');
+                                $bulanIndo = [
+                                    '01' => 'Januari',
+                                    '02' => 'Februari',
+                                    '03' => 'Maret',
+                                    '04' => 'April',
+                                    '05' => 'Mei',
+                                    '06' => 'Juni',
+                                    '07' => 'Juli',
+                                    '08' => 'Agustus',
+                                    '09' => 'September',
+                                    '10' => 'Oktober',
+                                    '11' => 'November',
+                                    '12' => 'Desember',
+                                ];
+
+                                for ($i = 1; $i < 13; $i++) {
+                                    $jatuhtempo = date("Y-m-d", strtotime("+$i month", strtotime($awaltempo)));
+                                    $bulan = $bulanIndo[date('m', strtotime($jatuhtempo))];
+                                    $hasil_bulan = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE bulan='$bulan' AND nis='$nis'");
+                                    $data_bulan = mysqli_fetch_assoc($hasil_bulan);
+
+                                ?>
+                                    <tr>
+                                        <td> <?= $i ?> </td>
+                                        <td> <?= $bulan ?></td>
+                                        <td>10-<?= $bulanIndo[date('m', strtotime($jatuhtempo))]; ?></td>
+                                        <td><?= $data_bulan['status'] ?></td>
+                                        <td><?= $data_bulan['tgl_bayar']; ?></td>
+                                        <td>
+                                            <?php
+                                            if (isset($data_bulan)) {
+                                            ?>
+                                                Rp. <?= number_format($row_bulan['jumlah'], 0, ',', '.'); ?>
+                                            <?php
+                                            }
+                                            ?>
+                                        </td>
+                                        <td class="btn-detail">
+                                            <?php
+                                            $cek_bulan = mysqli_num_rows($hasil_bulan);
+                                            if (!$cek_bulan > 0) {
+                                                if (!$nis == 0) {
+                                            ?>
+                                                    <a href="../insert/pembayaran.php?bulan=<?= $bulan ?>&<?= $data['nis'] ?>">Bayar</a>
+                                                    <input type="text" hidden name="bulan" value="<?= $bulan; ?>">
+                                                    <input type="text" hidden name="nis" value="<?= $data['nis']; ?>">
+                                                <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <a href="../delete/proses_pembayaran.php?id_pembayaran=<?= $data_bulan['id_pembayaran']; ?>" onclick="return confirm('Anda Yakin mau membatalkan transaksi')"></a>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <!-- Penutup Perulangan -->
+                                <?php } ?>
+                            </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Penutup Isset  -->
+        <?php }
+        ?>
 
     </div>
-
     <script src="../js/script.js"></script>
 </body>
 

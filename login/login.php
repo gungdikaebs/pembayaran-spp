@@ -1,32 +1,35 @@
 <?php
 session_start();
+require "../koneksi.php";
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Login Form Design | CodeLab</title>
     <link rel="stylesheet" href="loginstyle.css">
-    <title>Login Page</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="wrapper">
+        <div class="title">
+            Login Form
+        </div>
         <form action="proses_login.php" method="post">
-            <div class="card">
-                <h1>Login Page</h1>
+            <div class="field">
+                <input type="text" name="username" required>
+                <label>Username</label>
             </div>
-            <div class="card">
-                <label for="username">Username</label>
-                <input type="text" placeholder="username" name="username">
+            <div class="field">
+                <input type="password" name="password" required>
+                <label>Password</label>
             </div>
-            <div class="card">
-                <label for="password">Password</label>
-                <input type="password" placeholder="password" name="password">
+            <div class="field">
+                <input type="submit" value="Login" name="login">
             </div>
-            <button type="submit" class="login">Login</button>
         </form>
     </div>
 </body>

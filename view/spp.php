@@ -20,6 +20,11 @@ session_start();
         <div class="card-tittle">
             <h4>Data Spp</h4>
         </div>
+
+        <div class="tambah-menu">
+            <a href="../insert/spp.php">Tambah Data</a>
+        </div>
+
         <div class="row">
             <table class="table" border="1px solid">
                 <thead>
@@ -27,6 +32,7 @@ session_start();
 
                         <th>Angkatan</th>
                         <th>Biaya</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +43,10 @@ session_start();
                         <tr>
                             <td><?php echo $row["angkatan"] ?></td>
                             <td><?php echo $row["biaya"] ?></td>
+                            <td class="action">
+                                <a href="" class="update">Update</a>
+                                <a href="" class="delete">Delete</a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

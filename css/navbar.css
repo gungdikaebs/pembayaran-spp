@@ -1,4 +1,4 @@
-@import url(root.css);
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;1,700&display=swap');
 
 :root {
     --bg: #FFFBF5;
@@ -14,18 +14,19 @@
 }
 
 body {
-    background-color: var(--bg);
+    background-color: aliceblue;
     height: 100vh;
 }
 
 /* Navbar */
 .navbar {
-    font-family: 'poppins';
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 20px;
-    background-color: var(--primary);
+    background: rgb(75, 73, 172);
+    background: linear-gradient(90deg, rgba(75, 73, 172, 1) 23%, rgba(106, 120, 206, 1) 74%);
     position: fixed;
     left: 0;
     right: 0;
@@ -60,13 +61,13 @@ body {
     content: '';
     display: block;
     padding-right: 0.5rem;
-    border-bottom: 0.1rem solid var(--primary);
+    border-bottom: 0.1rem solid #00000049;
     transform: scaleX(0);
     transition: 0.6s;
 }
 
 .navbar .navbar-nav a:hover::after {
-    transform: scaleX(1);
+    transform: scaleX(0.5);
 }
 
 .navbar .navbar-extra a {
@@ -81,8 +82,6 @@ body {
 #hamburger-menu {
     display: none;
 }
-
-
 
 /*  laptop   */
 @media (max-width: 1336px) {
@@ -124,5 +123,17 @@ body {
         transform: scaleX(0.2);
     }
 
-    @media (max-width: 764px) {}
+}
+
+@media (max-width: 764px) {
+    html {
+        font-size: 62.5%;
+    }
+}
+
+
+@media (max-width: 450px) {
+    html {
+        font-size: 55%;
+    }
 }
