@@ -52,7 +52,8 @@ body {
 }
 
 .container .row input[type=text],
-.container .row input[type=password] {
+.container .row input[type=password],
+.container .row input[type=date] {
     display: block;
     background-color: #dcd9d932;
     border: 1px solid #0a0a0acd;
@@ -80,4 +81,14 @@ body {
     border: 1px solid #0a0a0acd;
     border-radius: 0.5rem;
     background-color: #dcd9d932;
+}
+
+.pembayaran .row table th {
+    font-size: 1rem;
+    text-align: right;
+    padding: 1rem 2rem;
+}
+
+.pembayaran .row table td {
+    padding: 0.5rem;
 }
