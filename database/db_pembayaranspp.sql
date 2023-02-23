@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2023 at 02:15 AM
+-- Generation Time: Feb 23, 2023 at 12:27 AM
 -- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tb_kelas` (
-  `Id` int(10) NOT NULL,
+  `id_kelas` int(10) NOT NULL,
   `nama_kelas` varchar(30) NOT NULL,
   `keterangan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `tb_kelas` (
 -- Dumping data for table `tb_kelas`
 --
 
-INSERT INTO `tb_kelas` (`Id`, `nama_kelas`, `keterangan`) VALUES
+INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`, `keterangan`) VALUES
 (1, 'X RPL', 'Rekayasa Perangkat Lunak');
 
 -- --------------------------------------------------------
@@ -50,12 +50,23 @@ CREATE TABLE `tb_pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_petugas` int(11) NOT NULL,
   `nis` int(11) NOT NULL,
-  `tgl_bayar` date NOT NULL,
-  `bulan` varchar(30) NOT NULL,
-  `tahun` varchar(10) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `angkatan` int(11) NOT NULL
+  `tgl_bayar` date DEFAULT NULL,
+  `bulan` varchar(30) DEFAULT NULL,
+  `tahun` varchar(10) DEFAULT NULL,
+  `jumlah` varchar(50) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `angkatan` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_pembayaran`
+--
+
+INSERT INTO `tb_pembayaran` (`id_pembayaran`, `id_petugas`, `nis`, `tgl_bayar`, `bulan`, `tahun`, `jumlah`, `status`, `angkatan`) VALUES
+(2, 1, 2101, '2023-02-22', 'Juli', '2023', '700000', 'Lunas', 2022),
+(3, 1, 2101, '2023-02-22', 'Agustus', '2023', '700000', 'Lunas', 2022),
+(4, 1, 2101, '2023-02-22', 'September', '2023', '700000', 'Lunas', 2022),
+(5, 1, 2101, '2023-02-22', 'Oktober', '2023', '700000', 'Lunas', 2022);
 
 -- --------------------------------------------------------
 
@@ -76,7 +87,8 @@ CREATE TABLE `tb_petugas` (
 --
 
 INSERT INTO `tb_petugas` (`id_petugas`, `nama_petugas`, `username`, `password`, `leveluser`) VALUES
-(1, 'admin', 'admin', 'admin', 'admin');
+(1, 'admin', 'admin', 'admin', 'admin'),
+(2, 'petugas', 'petugas', 'petugas', 'petugas');
 
 -- --------------------------------------------------------
 
@@ -92,7 +104,7 @@ CREATE TABLE `tb_siswa` (
   `angkatan` int(20) NOT NULL,
   `kelas` int(10) NOT NULL,
   `alamat` varchar(50) NOT NULL,
-  `no_ortu` int(11) NOT NULL
+  `no_ortu` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -100,7 +112,7 @@ CREATE TABLE `tb_siswa` (
 --
 
 INSERT INTO `tb_siswa` (`nis`, `nama`, `nisn`, `password`, `angkatan`, `kelas`, `alamat`, `no_ortu`) VALUES
-(2101, 'Kevin', 12345671, '1234', 2022, 1, 'Jalan Kemana Aja', 0);
+(2101, 'Kevin', 12345671, '1234', 2022, 1, 'Jalan Kemana Aja', '0');
 
 -- --------------------------------------------------------
 
@@ -130,7 +142,7 @@ INSERT INTO `tb_spp` (`angkatan`, `biaya`) VALUES
 -- Indexes for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`id_kelas`);
 
 --
 -- Indexes for table `tb_pembayaran`
@@ -168,19 +180,19 @@ ALTER TABLE `tb_spp`
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kelas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_petugas`
 --
 ALTER TABLE `tb_petugas`
-  MODIFY `id_petugas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_petugas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_siswa`
@@ -202,7 +214,6 @@ ALTER TABLE `tb_spp`
 -- Constraints for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
-  ADD CONSTRAINT `fk_angkatan_tb_pembayaran` FOREIGN KEY (`id_pembayaran`) REFERENCES `tb_spp` (`angkatan`),
   ADD CONSTRAINT `fk_idpetugas_tb_pembayaran` FOREIGN KEY (`id_petugas`) REFERENCES `tb_petugas` (`id_petugas`),
   ADD CONSTRAINT `fk_nisn_tb_pembayaran` FOREIGN KEY (`nis`) REFERENCES `tb_siswa` (`nis`);
 
@@ -210,7 +221,7 @@ ALTER TABLE `tb_pembayaran`
 -- Constraints for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
-  ADD CONSTRAINT `fk_idkelas_tb_siswa` FOREIGN KEY (`kelas`) REFERENCES `tb_kelas` (`Id`),
+  ADD CONSTRAINT `fk_idkelas_tb_siswa` FOREIGN KEY (`kelas`) REFERENCES `tb_kelas` (`Id_kelas`),
   ADD CONSTRAINT `fk_idspp_tb_siswa` FOREIGN KEY (`angkatan`) REFERENCES `tb_spp` (`angkatan`);
 COMMIT;
 

@@ -2,6 +2,7 @@
 session_start();
 require "../koneksi.php";
 error_reporting(0);
+
 ?>
 
 
@@ -124,6 +125,7 @@ error_reporting(0);
                             <tr>
                                 <th>NO</th>
                                 <th>Bulan</th>
+                                <th>Tahun</th>
                                 <th>Jatuh Tempo</th>
                                 <th>Tanggal Bayar</th>
                                 <th>Jumlah</th>
@@ -152,22 +154,44 @@ error_reporting(0);
 
                                 for ($i = 1; $i < 13; $i++) {
                                     $jatuhtempo = date("Y-m-d", strtotime("+$i month", strtotime($awaltempo)));
+                                    $tahun_now = $data['angkatan'];
+
                                     $bulan = $bulanIndo[date('m', strtotime($jatuhtempo))];
                                     $hasil_bulan = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE bulan='$bulan' AND nis='$nis'");
                                     $data_bulan = mysqli_fetch_assoc($hasil_bulan);
 
                                 ?>
                                     <tr>
-                                        <td> <?= $i ?> </td>
-                                        <td> <?= $bulan ?></td>
+                                        <td> <?= $i; ?> </td>
+                                        <td> <?= $bulan; ?></td>
+                                        <?php
+                                        if ($i < 7) {
+                                        ?>
+                                            <td>
+                                                <?php
+                                                $tahun_bayar = $tahun_now;
+                                                echo $tahun_bayar;
+                                                ?>
+                                            </td>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <td>
+                                                <?php
+                                                $tahun_bayar = $tahun_now + 1;
+                                                echo $tahun_bayar;
+                                                ?>
+                                            </td>
+
+                                        <?php } ?>
                                         <td>10-<?= $bulanIndo[date('m', strtotime($jatuhtempo))]; ?></td>
-                                        <td><?= $data_bulan['status'] ?></td>
+                                        <td><?= $data_bulan['status']; ?></td>
                                         <td><?= $data_bulan['tgl_bayar']; ?></td>
                                         <td>
                                             <?php
                                             if (isset($data_bulan)) {
                                             ?>
-                                                Rp. <?= number_format($row_bulan['jumlah'], 0, ',', '.'); ?>
+                                                Rp. <?= number_format($data_bulan['jumlah'], 0, ',', '.'); ?>
                                             <?php
                                             }
                                             ?>
@@ -178,14 +202,14 @@ error_reporting(0);
                                             if (!$cek_bulan > 0) {
                                                 if (!$nis == 0) {
                                             ?>
-                                                    <a href="../insert/pembayaran.php?bulan=<?= $bulan ?>&<?= $data['nis'] ?>">Bayar</a>
+                                                    <a href="../insert/pembayaran.php?bulan=<?= $bulan ?>&nis=<?= $data['nis'] ?>&tahun=<?= $tahun_bayar; ?>">Bayar</a>
                                                     <input type="text" hidden name="bulan" value="<?= $bulan; ?>">
                                                     <input type="text" hidden name="nis" value="<?= $data['nis']; ?>">
                                                 <?php
                                                 }
                                             } else {
                                                 ?>
-                                                <a href="../delete/proses_pembayaran.php?id_pembayaran=<?= $data_bulan['id_pembayaran']; ?>" onclick="return confirm('Anda Yakin mau membatalkan transaksi')"></a>
+                                                <a href="../delete/proses_pembayaran.php?id_pembayaran=<?= $data_bulan['id_pembayaran']; ?>" onclick="return confirm('Anda Yakin mau membatalkan transaksi')">Batal</a>
                                             <?php } ?>
                                         </td>
                                     </tr>

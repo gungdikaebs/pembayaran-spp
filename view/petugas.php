@@ -41,7 +41,7 @@ session_start();
                 </thead>
                 <tbody>
                     <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM tb_petugas");
+                    $query = mysqli_query($koneksi, "SELECT * FROM tb_petugas ");
 
                     while ($data = mysqli_fetch_assoc($query)) {
                     ?>

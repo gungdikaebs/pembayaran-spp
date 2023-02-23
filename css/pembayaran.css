@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600;700;800&family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;1,700&display=swap');
+
+:root {
+    --bg: #FFFBF5;
+    --primary: #4B49AC;
+    --secondary: #98BDFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: aliceblue;
+}
