@@ -1,6 +1,11 @@
 <?php
 session_start();
-require '../koneksi.php'
+require '../koneksi.php';
+
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +33,8 @@ require '../koneksi.php'
 
             <div class="row">
                 <form action="prosesupdatesiswa.php" method="post">
-                    <div class="input-group">
+
+                    <div class="input-group" hidden>
                         <label for="">Nis</label>
                         <input type="text" name="nis" value="<?= $data['nis']; ?>">
                     </div>
@@ -39,6 +45,10 @@ require '../koneksi.php'
                     <div class="input-group">
                         <label for="">Nisn</label>
                         <input type="text" name="nisn" value="<?= $data['nisn']; ?>">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Password</label>
+                        <input type="text" name="password" value="<?= $data['password']; ?>">
                     </div>
                     <div class="input-group">
                         <label for="">Angkatan</label>

@@ -1,0 +1,92 @@
+:root {
+    --bg: #FFFBF5;
+    --primary: #4B49AC;
+    --secondary: #98BDFF;
+}
+
+.container {
+    width: 80%;
+    margin: 3rem auto;
+    text-align: center;
+
+}
+
+.card {
+    display: flex;
+    width: 100%;
+}
+
+
+
+.container .row {
+    border-radius: 1rem;
+    background-color: white;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.container .row .table {
+    flex: 1 !important;
+    border-radius: 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-collapse: collapse;
+}
+
+.container .row .table thead {
+    border-radius: 20px;
+}
+
+.container .row table th,
+.container .row table td {
+    font-family: 'Karla', sans-serif;
+    padding: 10px 20px;
+}
+
+.container .row table th {
+    background-color: var(--secondary);
+    color: #000;
+}
+
+.total {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.aksi {
+    display: flex;
+    justify-content: space-between;
+}
+
+.aksi .btn-aksi {
+    display: inline-flex;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid grey;
+    color: #000;
+    border-radius: .6rem;
+    padding: .5rem 1rem;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.aksi .btn-aksi:hover {
+    background-color: grey;
+    color: #fff;
+}
+
+.tanda-tangan {
+    width: 200px;
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+    text-align: left;
+}
+
+@media print {
+    .print-none {
+        display: none;
+    }
+}

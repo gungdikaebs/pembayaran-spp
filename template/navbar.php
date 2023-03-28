@@ -6,9 +6,10 @@ if ($_SESSION['leveluser'] == "admin") {
         <a href="../view/dashboard.php" class="navbar-logo">Pembayaran<span>SPP</span></a>
         <div class="navbar-nav">
             <a href="../view/dashboard.php">Home</a>
-            <a href="../view/siswa.php">Data Siswa</a>
-            <a href="../view/petugas.php">Data Petugas</a>
-            <a href="../view/spp.php">Data Spp</a>
+            <a href="../view/siswa.php">Siswa</a>
+            <a href="../view/kelas.php">Kelas</a>
+            <a href="../view/petugas.php">Petugas</a>
+            <a href="../view/spp.php"> Spp</a>
             <a href="../view/pembayaran.php">Pembayaran</a>
             <a href="../view/history.php">History</a>
             <a href="../view/laporan.php">Laporan</a>
@@ -26,13 +27,16 @@ if ($_SESSION['leveluser'] == "admin") {
 if ($_SESSION['leveluser'] == "petugas") {
 ?>
     <nav class="navbar">
-        <a href="" class="navbar-logo"></a>
+        <a href="../view/dashboard.php" class="navbar-logo">Pembayaran<span>SPP</span></a>
         <div class="navbar-nav">
             <a href="../view/dashboard.php">Home</a>
             <a href="../view/pembayaran.php">Pembayaran</a>
             <a href="../view/history.php">History Pembayaran</a>
             <a href="../view/laporan.php">Laporan</a>
             <a href="../login/logout.php">Logout</a>
+        </div>
+        <div class="navbar-extra">
+            <a href="#" id="hamburger-menu"><img src="../img/menu.png" alt="menu" width="30px"></a>
         </div>
     </nav>
 <?php  } ?>
@@ -43,11 +47,14 @@ if ($_SESSION['leveluser'] == "petugas") {
 if ($_SESSION['leveluser'] == "siswa") {
 ?>
     <nav class="navbar">
-        <a href="" class="navbar-logo"></a>
+        <a href="../view/dashboard.php" class="navbar-logo">Pembayaran<span>SPP</span></a>
         <div class="navbar-nav">
-            <a href="">Home</a>
+            <a href="../view/dashboard.php">Home</a>
             <a href="../view/history.php">History Pembayaran</a>
             <a href="../login/logout.php">Logout</a>
+        </div>
+        <div class="navbar-extra">
+            <a href="#" id="hamburger-menu"><img src="../img/menu.png" alt="menu" width="30px"></a>
         </div>
     </nav>
 <?php  } ?>

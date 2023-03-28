@@ -1,6 +1,10 @@
 <?php
 session_start();
 require '../koneksi.php';
+
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
 ?>
 
 
@@ -17,56 +21,55 @@ require '../koneksi.php';
 </head>
 
 <body>
-    <div class="container">
-        <?php
-        require '../template/navbar.php';
-        $id_petugas = $_GET['id_petugas'];
-        $hasil = mysqli_query($koneksi, "SELECT * FROM tb_petugas WHERE id_petugas='$id_petugas'");
-        while ($data = mysqli_fetch_assoc($hasil)) {
-        ?>
-            <div class="container">
-                <div class="card-tittle">
-                    <h2>Form Update Petugas</h2>
-                </div>
 
-                <div class="row">
-                    <form action="prosesupdatepetugas.php" method="post">
-                        <div class="input-group">
-                            <label for="">Id Petugas</label>
-                            <input type="text" name="id_petugas" value="<?= $data['id_petugas']; ?>">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Nama Petugas</label>
-                            <input type="text" name="nama_petugas" value="<?= $data['nama_petugas']; ?>">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Username</label>
-                            <input type="text" name="username" value="<?= $data['username']; ?>">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Password</label>
-                            <input type="text" name="password" value="<?= $data['password']; ?>">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Level Petugas</label>
-                            <select name="leveluser" id="">
-                                <option selected hidden value="<?= $data['leveluser']; ?>"><?= $data['leveluser']; ?></option>
-                                <option value="petugas">Petugas</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <div class="submit">
-                                <input type="submit" value="Update">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <?php
+    require '../template/navbar.php';
+    $id_petugas = $_GET['id_petugas'];
+    $hasil = mysqli_query($koneksi, "SELECT * FROM tb_petugas WHERE id_petugas='$id_petugas'");
+    while ($data = mysqli_fetch_assoc($hasil)) {
+    ?>
+        <div class="container">
+            <div class="card-tittle">
+                <h2>Form Update Petugas</h2>
             </div>
-        <?php
-        }
-        ?>
-    </div>
+
+            <div class="row">
+                <form action="prosesupdatepetugas.php" method="post">
+                    <div class="input-group">
+                        <label for="">Id Petugas</label>
+                        <input type="text" name="id_petugas" value="<?= $data['id_petugas']; ?>">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Nama Petugas</label>
+                        <input type="text" name="nama_petugas" value="<?= $data['nama_petugas']; ?>">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Username</label>
+                        <input type="text" name="username" value="<?= $data['username']; ?>">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Password</label>
+                        <input type="text" name="password" value="<?= $data['password']; ?>">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Level Petugas</label>
+                        <select name="leveluser" id="">
+                            <option selected hidden value="<?= $data['leveluser']; ?>"><?= $data['leveluser']; ?></option>
+                            <option value="petugas">Petugas</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div class="submit">
+                            <input type="submit" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
 </body>
 
 </html>

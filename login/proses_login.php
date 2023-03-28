@@ -21,14 +21,12 @@
     if ($cek_petugas > 0) {
         $_SESSION['id_petugas'] = $baris_petugas['id_petugas'];
         $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
         $_SESSION['nama_petugas'] = $baris_petugas['nama_petugas'];
         $_SESSION['leveluser'] = $baris_petugas['leveluser'];
         header("location: ../view/dashboard.php");
     } else if ($cek_siswa > 0) {
         $_SESSION['nis'] = $nis;
         $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
         $_SESSION['nama'] = $baris_petugas['nama'];
         $_SESSION['leveluser'] = "siswa";
         header("location:../view/dashboard.php");

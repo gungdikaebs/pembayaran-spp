@@ -1,9 +1,10 @@
-<?php require "../koneksi.php";
+<?php
+require "../koneksi.php";
 session_start();
-
 if (!isset($_SESSION['username'])) {
     echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
 }
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +15,7 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/tableview.css">
-    <title>View SPP | Aplikasi Pembayaran SPP</title>
+    <title>View Kelas | Aplikasi Pembayaran SPP</title>
 </head>
 
 <body>
@@ -22,37 +23,37 @@ if (!isset($_SESSION['username'])) {
     <div class="container">
 
         <div class="card-tittle">
-            <h4>Data Spp</h4>
+            <h4>Data Kelas</h4>
         </div>
 
         <div class="tambah-menu">
-            <a href="../insert/spp.php">Tambah Data</a>
+            <a href="../insert/kelas.php">Tambah Data</a>
         </div>
 
         <div class="row">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Angkatan</th>
-                        <th>Biaya</th>
+                        <th>Id Kelas</th>
+                        <th>Nama Kelas</th>
+                        <th>Keterangan</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM tb_spp");
+                    $query = mysqli_query($koneksi, "SELECT * FROM tb_kelas");
                     while ($data = mysqli_fetch_assoc($query)) {
                     ?>
                         <tr>
-                            <td><?php echo $data["angkatan"] ?></td>
+                            <td><?= $data["id_kelas"]; ?></td>
                             <td>
-
-                                <?php echo 'Rp. ';
-                                echo number_format($data['biaya'], 0, ',', '.'); ?>
+                                <?= $data['nama_kelas'];  ?>
                             </td>
+                            <td><?= $data['keterangan']; ?></td>
                             <td class="action">
-                                <a href="../update/spp.php?angkatan=<?= $data['angkatan']; ?> " class="btn-aksi"><img src="../img/update.png" alt=""></a>
-                                <!-- <a href="../delete/delete_spp.php?angkatan=<?= $data['angkatan']; ?>" class="btn-aksi"><img src="../img/delete.png" alt=""></a> -->
+                                <a href="../update/kelas.php?id_kelas=<?= $data['id_kelas']; ?> " class="btn-aksi"><img src="../img/update.png" alt=""></a>
+                                <!-- <a href="../delete/delete_kelas.php?id_kelas=<?= $data['id_kelas']; ?>" class="btn-aksi"><img src="../img/delete.png" alt=""></a> -->
                             </td>
                         </tr>
                     <?php } ?>

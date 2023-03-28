@@ -2,7 +2,9 @@
 session_start();
 require "../koneksi.php";
 error_reporting(0);
-
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
 ?>
 
 
@@ -15,7 +17,6 @@ error_reporting(0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/tableview.css">
-    <link rel="stylesheet" href="../css/search.css">
     <title>View Pembayaran | Aplikasi Pembayaran SPP</title>
 </head>
 
@@ -52,12 +53,8 @@ error_reporting(0);
                                 ?>
                             </datalist>
                         </td>
-
-                        <td>
-                            <?php ?>
-                        </td>
-                        <td>
-                            <button class="button" name="cari">Cari</button>
+                        <td class="cari">
+                            <button class="button" name="cari"><img src="../img/search-white.png" width="20px" alt=""></button>
                         </td>
                     </tr>
                 </form>
@@ -66,167 +63,129 @@ error_reporting(0);
 
         <?php
         if (isset($_GET['nis']) && ($_GET['nis'] != '')) {
-            $querycari = "SELECT *  FROM tb_siswa WHERE nis='$_GET[nis]'";
+            $querycari = "SELECT *  FROM tb_siswa INNER JOIN tb_spp ON tb_siswa.angkatan = tb_spp.angkatan WHERE nis='$_GET[nis]' ";
             $resultcari = mysqli_query($koneksi, $querycari);
             $data = mysqli_fetch_assoc($resultcari);
-            $nis = $data['nis'];
-
+            if ($result->num_rows  ==  true) {
         ?>
-            <div class="biodata">
-                <div class="judul-biodata">
-                    <h2>Biodata Siswa</h2>
+                <div class="biodata">
+                    <div class="judul-biodata">
+                        <h2>Biodata Siswa</h2>
+                    </div>
+
+                    <div class="table-biodata">
+                        <table>
+                            <form action="" method="post">
+                                <tr>
+                                    <td>Nis</td>
+                                    <td>:</td>
+                                    <td><?= $data['nis']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td><?= $data['nama']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Nisn</td>
+                                    <td>:</td>
+                                    <td><?= $data['nisn']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Angkatan</td>
+                                    <td>:</td>
+                                    <td><?= $data['angkatan']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>:</td>
+                                    <td><?= $data['alamat']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>No Telpon Ortu</td>
+                                    <td>:</td>
+                                    <td><?= $data['no_ortu']; ?></td>
+                                </tr>
+                            </form>
+                        </table>
+                    </div>
                 </div>
+                <!-- Data Detail Tagihan Siswa -->
+                <?php
+                $nis = $data['nis'];
+                $data_bayar = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE nis = '$nis'");
+                $i = 1;
+                ?>
 
-                <div class="table-biodata">
-                    <table>
-                        <form action="../insert/prosespembayaran.php" method="post">
-                            <tr>
-                                <td>Nis</td>
-                                <td>:</td>
-                                <td><?= $data['nis']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Nama</td>
-                                <td>:</td>
-                                <td><?= $data['nama']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Nisn</td>
-                                <td>:</td>
-                                <td><?= $data['nisn']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Angkatan</td>
-                                <td>:</td>
-                                <td><?= $data['angkatan']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Alamat</td>
-                                <td>:</td>
-                                <td><?= $data['alamat']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>No Telpon Ortu</td>
-                                <td>:</td>
-                                <td><?= $data['no_ortu']; ?></td>
-                            </tr>
-                        </form>
-                    </table>
-                </div>
-            </div>
+                <div class="detail-siswa">
+                    <div class="judul-detail">
+                        <h2>Detail Siswa</h2>
+                    </div>
 
-            <div class="detail-siswa">
-                <div class="judul-detail">
-                    <h2>Detail Siswa</h2>
-                </div>
-                <div class="table-detail">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>Bulan</th>
-                                <th>Tahun</th>
-                                <th>Jatuh Tempo</th>
-                                <th>Tanggal Bayar</th>
-                                <th>Jumlah</th>
-                                <th>Keterangan</th>
-                                <th>Bayar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action="" method="get">
-                                <?php
-                                $awaltempo = date('y-06-d');
-                                $bulanIndo = [
-                                    '01' => 'Januari',
-                                    '02' => 'Februari',
-                                    '03' => 'Maret',
-                                    '04' => 'April',
-                                    '05' => 'Mei',
-                                    '06' => 'Juni',
-                                    '07' => 'Juli',
-                                    '08' => 'Agustus',
-                                    '09' => 'September',
-                                    '10' => 'Oktober',
-                                    '11' => 'November',
-                                    '12' => 'Desember',
-                                ];
-
-                                for ($i = 1; $i < 13; $i++) {
-                                    $jatuhtempo = date("Y-m-d", strtotime("+$i month", strtotime($awaltempo)));
-                                    $tahun_now = $data['angkatan'];
-
-                                    $bulan = $bulanIndo[date('m', strtotime($jatuhtempo))];
-                                    $hasil_bulan = mysqli_query($koneksi, "SELECT * FROM tb_pembayaran WHERE bulan='$bulan' AND nis='$nis'");
-                                    $data_bulan = mysqli_fetch_assoc($hasil_bulan);
-
-                                ?>
-                                    <tr>
-                                        <td> <?= $i; ?> </td>
-                                        <td> <?= $bulan; ?></td>
-                                        <?php
-                                        if ($i < 7) {
-                                        ?>
+                    <div class="table-detail">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Bulan</th>
+                                    <th>Tahun</th>
+                                    <th>Tanggal Bayar</th>
+                                    <th>Jumlah</th>
+                                    <th>Keterangan</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($data_bayar as $row) { ?>
+                                    <form action="">
+                                        <tr>
+                                            <td hidden><?= $row['id_pembayaran']; ?></td>
+                                            <td><?= $i; ?></td>
+                                            <td><?= $row['bulan']; ?></td>
+                                            <td><?= $row['tahun']; ?></td>
+                                            <td><?= $row['tgl_bayar']; ?></td>
+                                            <td><?= $data['biaya']; ?></td>
+                                            <td><?= $row['status']; ?></td>
                                             <td>
                                                 <?php
-                                                $tahun_bayar = $tahun_now;
-                                                echo $tahun_bayar;
+                                                if ($row['tgl_bayar'] == NULL) {
                                                 ?>
-                                            </td>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <td>
+                                                    <a href="../insert/pembayaran.php?nis=<?= $nis; ?>&bulan=<?= $row['bulan']; ?>&tahun=<?= $row['tahun']; ?>&id_pembayaran=<?= $row['id_pembayaran']; ?>">Bayar</a>
                                                 <?php
-                                                $tahun_bayar = $tahun_now + 1;
-                                                echo $tahun_bayar;
+                                                } else {
                                                 ?>
-                                            </td>
-
-                                        <?php } ?>
-                                        <td>10-<?= $bulanIndo[date('m', strtotime($jatuhtempo))]; ?></td>
-                                        <td><?= $data_bulan['status']; ?></td>
-                                        <td><?= $data_bulan['tgl_bayar']; ?></td>
-                                        <td>
-                                            <?php
-                                            if (isset($data_bulan)) {
-                                            ?>
-                                                Rp. <?= number_format($data_bulan['jumlah'], 0, ',', '.'); ?>
-                                            <?php
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class="btn-detail">
-                                            <?php
-                                            $cek_bulan = mysqli_num_rows($hasil_bulan);
-                                            if (!$cek_bulan > 0) {
-                                                if (!$nis == 0) {
-                                            ?>
-                                                    <a href="../insert/pembayaran.php?bulan=<?= $bulan ?>&nis=<?= $data['nis'] ?>&tahun=<?= $tahun_bayar; ?>">Bayar</a>
-                                                    <input type="text" hidden name="bulan" value="<?= $bulan; ?>">
-                                                    <input type="text" hidden name="nis" value="<?= $data['nis']; ?>">
+                                                    <h4>Selesai</h4>
                                                 <?php
                                                 }
-                                            } else {
+                                                $i++
                                                 ?>
-                                                <a href="../delete/proses_pembayaran.php?id_pembayaran=<?= $data_bulan['id_pembayaran']; ?>" onclick="return confirm('Anda Yakin mau membatalkan transaksi')">Batal</a>
-                                            <?php } ?>
-                                        </td>
-                                    </tr>
-                                    <!-- Penutup Perulangan -->
-                                <?php } ?>
-                            </form>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                                            </td>
 
-            <!-- Penutup Isset  -->
-        <?php }
-        ?>
+                                        </tr>
+                                    </form>
+                            </tbody>
+                        <?php
+                                    // Penutup Perulangan For Each
+                                }
+                        ?>
+                        </table>
+                        <?php
+
+
+                        ?>
+                    </div>
+            <?php
+                //  <!-- Penutup If Rows -->
+            }
+            // <!-- Penutup Isset -->
+        } ?>
+                </div>
 
     </div>
-    <script src="../js/script.js"></script>
+    <?php
+    require "../template/footer.php";
+    ?>
+    <script src=" ../js/script.js"></script>
 </body>
 
 </html>

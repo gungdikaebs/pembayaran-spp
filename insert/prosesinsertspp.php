@@ -2,8 +2,8 @@
 session_start();
 require '../koneksi.php';
 
-$angkatan = $_POST['angkatan'];
-$biaya = $_POST['biaya'];
+$angkatan = htmlspecialchars($_POST['angkatan']);
+$biaya = htmlspecialchars($_POST['biaya']);
 
 $insert = mysqli_query($koneksi, "INSERT INTO tb_spp(angkatan,biaya) VALUES ('$angkatan','$biaya')");
 

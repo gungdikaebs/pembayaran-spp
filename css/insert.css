@@ -41,6 +41,7 @@ body {
     background-color: #fff;
     border-radius: 1rem;
     padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .container .row .input-group {
@@ -53,19 +54,20 @@ body {
 
 .container .row input[type=text],
 .container .row input[type=password],
-.container .row input[type=date] {
+.container .row input[type=date],
+.container .row select {
     display: block;
-    background-color: #dcd9d932;
-    border: 1px solid #0a0a0acd;
+    background-color: #f2f2f2;
+    border: none;
     width: 30rem;
     height: 3rem;
     padding: 0 1rem;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
 }
 
 .container .row input[type=submit] {
     margin-right: 1rem;
-    border: 1px solid #0a0a0acd;
+    border: none;
     border-radius: 0.8rem;
     width: 10rem;
     height: 2rem;
@@ -74,21 +76,7 @@ body {
     color: var(--bg);
 }
 
-.container .row select {
-    width: 100%;
-    padding: 0 1rem;
-    height: 3rem;
-    border: 1px solid #0a0a0acd;
-    border-radius: 0.5rem;
-    background-color: #dcd9d932;
-}
 
-.pembayaran .row table th {
-    font-size: 1rem;
-    text-align: right;
-    padding: 1rem 2rem;
-}
-
-.pembayaran .row table td {
-    padding: 0.5rem;
+.pembayaran .row {
+    padding-bottom: 10rem;
 }

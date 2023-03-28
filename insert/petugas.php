@@ -1,6 +1,10 @@
 <?php
 session_start();
 require '../koneksi.php';
+
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +37,7 @@ require '../koneksi.php';
                 </div>
                 <div class="input-group">
                     <label for="">Passsword</label>
-                    <input type="password" name="password">
+                    <input type="text" name="password">
                 </div>
                 <div class="input-group">
                     <label for="">Level User</label>

@@ -1,6 +1,9 @@
 <?php
 require "../koneksi.php";
 session_start();
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ session_start();
         </div>
 
         <div class="row">
-            <table class="table" border="1px">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>NIS</th>
@@ -45,7 +48,7 @@ session_start();
                 </thead>
                 <tbody>
                     <?php
-                    $query = mysqli_query($koneksi, "SELECT * FROM tb_siswa");
+                    $query = mysqli_query($koneksi, "SELECT * FROM tb_siswa INNER JOIN tb_kelas ON tb_siswa.kelas = tb_kelas.id_kelas");
                     while ($data = mysqli_fetch_assoc($query)) {
                     ?>
                         <tr>
@@ -53,12 +56,12 @@ session_start();
                             <td> <?php echo $data['nama']; ?></td>
                             <td> <?php echo $data['nisn']; ?></td>
                             <td> <?php echo $data['angkatan']; ?></td>
-                            <td> <?php echo $data['kelas']; ?></td>
+                            <td> <?php echo $data['nama_kelas']; ?></td>
                             <td> <?php echo $data['alamat']; ?></td>
                             <td> <?php echo $data['no_ortu']; ?></td>
                             <td class="action">
-                                <a href="../update/siswa.php?nis=<?= $data['nis']; ?>" class="update">Update</a>
-                                <a href="../delete/delete_siswa.php?nis=<?= $data['nis']; ?>" class="delete">Delete</a>
+                                <a href="../update/siswa.php?nis=<?= $data['nis']; ?>" class="btn-aksi"><img src="../img/update.png"></a>
+                                <a href=" ../delete/delete_siswa.php?nis=<?= $data['nis']; ?>" class="btn-aksi"><img src="../img/delete.png"></a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -67,7 +70,9 @@ session_start();
 
         </div>
     </div>
-
+    <?php
+    require "../template/footer.php";
+    ?>
     <script src="../js/script.js"></script>
 </body>
 

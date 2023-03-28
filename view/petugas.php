@@ -1,6 +1,10 @@
 <?php
 require "../koneksi.php";
 session_start();
+
+if (!isset($_SESSION['username'])) {
+    echo "<script>alert('Silahkan Login Terlebih dahulu');window.location='../login/login.php';</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +34,7 @@ session_start();
 
 
         <div class="row">
-            <table class="table" border="1px solid">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Id Petugas</th>
@@ -50,8 +54,8 @@ session_start();
                             <td><?php echo $data['nama_petugas']; ?></td>
                             <td><?php echo $data['leveluser']; ?></td>
                             <td class="action">
-                                <a href="../update/petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="update">Update</a>
-                                <a href="../delete/delete_petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="delete">Delete</a>
+                                <a href="../update/petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="btn-aksi"><img src="../img/update.png"></a>
+                                <a href=" ../delete/delete_petugas.php?id_petugas=<?= $data['id_petugas']; ?>" class="btn-aksi"><img src="../img/delete.png" alt=""></a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -60,7 +64,9 @@ session_start();
         </div>
 
     </div>
-
+    <?php
+    require "../template/footer.php";
+    ?>
     <script src="../js/script.js"></script>
 </body>
 

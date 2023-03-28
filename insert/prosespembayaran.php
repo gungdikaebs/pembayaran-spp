@@ -2,6 +2,7 @@
 session_start();
 require "../koneksi.php";
 
+$id_pembayaran = $_POST['id_pembayaran'];
 $id_petugas = $_SESSION['id_petugas'];
 $nis = $_POST['nis'];
 $tgl_bayar = date("Y-m-d");
@@ -13,12 +14,18 @@ $angkatan = $_POST['angkatan'];
 
 $hasil = mysqli_query(
     $koneksi,
-    "INSERT INTO tb_pembayaran
-(id_petugas,nis,tgl_bayar
-,bulan,tahun,status,jumlah,angkatan)
-VALUES ('$id_petugas','$nis','$tgl_bayar','$bulan','$tahun','$status','$jumlah','$angkatan')"
-);
+    "UPDATE tb_pembayaran SET
 
+        id_petugas = '$id_petugas',
+        nis = '$nis',
+        tgl_bayar = '$tgl_bayar',
+        bulan = '$bulan',
+        tahun = '$tahun',
+        jumlah = '$jumlah',
+        status = '$status'
+        WHERE id_pembayaran = '$id_pembayaran' 
+        "
+);
 if (!$hasil) {
     echo "<script>alert('Masukkan Data dengan benar'); location.href='../insert/pembayaran.php'</script>";
 } else {
